@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="SimpleStockQuoteProxy" startOnLoad="true" trace="disable"
+  transports="https http" xmlns="http://ws.apache.org/ns/synapse">
+  <target>
+    <endpoint key="SimpleStockQuoteEP"/>
+    <inSequence>
+      <log description="Request Log" level="custom">
+        <property
+          expression="fn:concat('Welcome ', //m0:getQuote/m0:request/m1:symbol)"
+          name="message" xmlns:m0="http://services.samples" xmlns:m1="http://services.samples/xsd"/>
+      </log>
+    </inSequence>
+    <outSequence>
+      <send/>
+    </outSequence>
+    <faultSequence/>
+  </target>
+  <publishWSDL uri="http://localhost:9000/services/SimpleStockQuoteService?wsdl"/>
+</proxy>
